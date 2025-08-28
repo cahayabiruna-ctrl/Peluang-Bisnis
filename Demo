@@ -1,40 +1,134 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presentasi DV Team x OPALP</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
     body {
-      background: linear-gradient(135deg, #0f172a, #1e293b, #0f172a);
-      color: white;
-      font-family: 'Inter', sans-serif;
-      overflow: hidden;
+      background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+      color: #fff; height:100vh; overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .container {
+      width:100%;height:100%;
+      display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
     }
     .slide {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      padding: 2rem;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      position:absolute;top:0;left:100%;
+      width:100%;height:100%;padding:2rem;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;transition:all 1s ease;
+      opacity:0;
     }
-    .active {
-      display: flex;
-      opacity: 1 !important;
-      transform: scale(1) !important;
+    .slide.active {left:0;opacity:1;}
+    h1 {font-size:2rem;margin-bottom:1rem;color:#00e0ff;}
+    p {max-width:600px;font-size:1.1rem;line-height:1.6;margin-bottom:1rem;}
+    .icon {font-size:4rem;margin-bottom:1rem;animation:float 3s infinite ease-in-out;}
+    @keyframes float {
+      0%{transform:translateY(0)}50%{transform:translateY(-15px)}100%{transform:translateY(0)}
     }
-    .hiddenSlide {
-      opacity: 0;
-      transform: scale(0.95);
+    .controls {
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      display:flex;gap:1rem;
     }
+    button {
+      background:rgba(255,255,255,0.2);border:none;
+      padding:0.6rem 1.2rem;border-radius:30px;
+      color:#fff;font-weight:600;cursor:pointer;
+      transition:0.3s;
+    }
+    button:hover {background:rgba(255,255,255,0.4);}
     .progress {
-      height: 6px;
+      position:absolute;bottom:0;left:0;height:5px;
+      background:#00e0ff;width:0%;
+      transition:width linear;
+    }
+  </style>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="slide active">
+      <i class="ph ph-globe icon"></i>
+      <h1>Konsep Usaha Masa Depan</h1>
+      <p>Dunia berubah cepat. Teknologi digital dan ekonomi berbagi membuka peluang baru. DV Team & OPALP hadir membawa konsep masa depan.</p>
+    </div>
+    
+    <div class="slide">
+      <i class="ph ph-warning-circle icon"></i>
+      <h1>Masalah & Tantangan</h1>
+      <p>Biaya hidup naik, lapangan kerja berkurang, banyak orang kerja keras tapi hasil tak cukup. Sistem lama makin sulit diandalkan.</p>
+    </div>
+    
+    <div class="slide">
+      <i class="ph ph-lightbulb icon"></i>
+      <h1>Solusi Nyata</h1>
+      <p>DV Team & OPALP menawarkan peluang investasi digital berbasis AI & data besar. Bukan spekulasi, tapi strategi modern yang terukur.</p>
+    </div>
+    
+    <div class="slide">
+      <i class="ph ph-rocket-launch icon"></i>
+      <h1>Kekuatan DV Team</h1>
+      <p>Analisis sistematis, strategi bertahap, tim berpengalaman, teknologi terkini. Semua dirancang menjaga profit tetap konsisten.</p>
+    </div>
+    
+    <div class="slide">
+      <i class="ph ph-handshake icon"></i>
+      <h1>Ajakan</h1>
+      <p>Saatnya buka pikiran, ambil peluang baru, dan tumbuh bersama DV Team. Bergabung sekarang untuk wujudkan penghasilan tambahan modern.</p>
+    </div>
+    
+    <div class="controls">
+      <button onclick="prevSlide()">◀ Prev</button>
+      <button onclick="nextSlide()">Next ▶</button>
+    </div>
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <script>
+    const slides=document.querySelectorAll('.slide');
+    const progress=document.getElementById('progress');
+    let index=0, timer, duration=15000;
+
+    function showSlide(i){
+      slides.forEach((s,idx)=>{
+        s.classList.remove('active');
+        s.style.left = idx<i ? "-100%" : "100%";
+      });
+      slides[i].classList.add('active');
+      slides[i].style.left="0";
+      resetProgress();
+    }
+
+    function nextSlide(){
+      index=(index+1)%slides.length;
+      showSlide(index);
+    }
+    function prevSlide(){
+      index=(index-1+slides.length)%slides.length;
+      showSlide(index);
+    }
+
+    function resetProgress(){
+      clearInterval(timer);
+      progress.style.transition="none";
+      progress.style.width="0%";
+      setTimeout(()=>{
+        progress.style.transition=`width ${duration}ms linear`;
+        progress.style.width="100%";
+      },50);
+      timer=setInterval(nextSlide,duration);
+    }
+
+    resetProgress();
+  </script>
+</body>
+</html>      height: 6px;
       background: rgba(255,255,255,0.2);
       position: fixed;
       bottom: 0;
