@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentasi DV Team x OPALP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b, #0f172a);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      padding: 2rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .active {
+      display: flex;
+      opacity: 1 !important;
+      transform: scale(1) !important;
+    }
+    .hiddenSlide {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    .progress {
+      height: 6px;
+      background: rgba(255,255,255,0.2);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+    .progress-bar {
+      height: 6px;
+      background: linear-gradient(to right, #06b6d4, #3b82f6);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .nav-btn {
+      position: fixed;
+      bottom: 20px;
+      background: rgba(255,255,255,0.1);
+      padding: 10px 20px;
+      border-radius: 9999px;
+      backdrop-filter: blur(6px);
+      transition: 0.3s;
+    }
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    #prevBtn { left: 20px; }
+    #nextBtn { right: 20px; }
+  </style>
+</head>
+<body>
+  <!-- Slides -->
+  <div id="slides">
+    <section class="slide active">
+      <h1 class="text-4xl font-bold mb-6">Konsep Usaha Masa Depan</h1>
+      <p class="text-lg max-w-2xl">Digital Verification Team (DV Team) & OPALP hadir dengan <span class="text-cyan-400">Teknologi Digital</span> dan <span class="text-blue-400">Ekonomi Berbagi</span> untuk menciptakan peluang finansial modern.</p>
+      <div id="anim1" class="w-64 h-64 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Masalah & Tantangan</h1>
+      <ul class="text-lg text-left max-w-xl space-y-3">
+        <li>❌ Penghasilan tidak sebanding dengan kebutuhan</li>
+        <li>❌ Ekonomi tidak stabil & PHK besar-besaran</li>
+        <li>❌ Hanya segelintir orang yang menikmati kebebasan finansial</li>
+        <li>❌ Berjuang sendiri dalam iklim usaha yang keras</li>
+      </ul>
+      <div id="anim2" class="w-72 h-72 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Kesadaran Baru</h1>
+      <p class="text-lg max-w-2xl">Kerja keras saja tidak cukup. <br> Kita perlu <span class="text-cyan-400">cara lebih cerdas</span> untuk bertahan dan berkembang di era digital.</p>
+      <div id="anim3" class="w-64 h-64 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Solusi Modern: DV Team x OPALP</h1>
+      <ul class="text-lg text-left max-w-xl space-y-3">
+        <li>✅ Trading berbasis <b>AI & Big Data</b></li>
+        <li>✅ Sinyal jelas, profit lebih terukur</li>
+        <li>✅ Belajar langsung bersama tim ahli</li>
+      </ul>
+      <div id="anim4" class="w-72 h-72 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Kekuatan Sistem</h1>
+      <p class="text-lg max-w-2xl">AI canggih, strategi bertahap, dan tim berpengalaman membuat sistem DV Team lebih aman & konsisten menghasilkan.</p>
+      <div id="anim5" class="w-64 h-64 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Strategi DV Team</h1>
+      <ol class="text-lg text-left max-w-xl space-y-2">
+        <li>1️⃣ Analisis pasar</li>
+        <li>2️⃣ Eksekusi trading</li>
+        <li>3️⃣ Manajemen risiko</li>
+        <li>4️⃣ Optimasi profit</li>
+        <li>5️⃣ Berbagi hasil</li>
+      </ol>
+      <div id="anim6" class="w-72 h-72 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Keunggulan Dibanding Cara Lama</h1>
+      <p class="text-lg max-w-2xl">DV Team menggunakan <span class="text-cyan-400">sistem berbasis data</span> yang lebih objektif, bukan sekadar tebakan atau spekulasi.</p>
+      <div id="anim7" class="w-64 h-64 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Bukti & Track Record</h1>
+      <p class="text-lg max-w-2xl">Hasil konsisten, profit terukur, dan testimoni nyata dari anggota yang telah merasakan manfaat DV Team.</p>
+      <div id="anim8" class="w-64 h-64 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Ekosistem & Kerjasama</h1>
+      <p class="text-lg max-w-2xl">DV Team, OPALP, dan Pengguna saling terhubung membentuk siklus tertutup yang berkelanjutan.</p>
+      <div id="anim9" class="w-72 h-72 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Visi Masa Depan</h1>
+      <p class="text-lg max-w-2xl">Membuka peluang finansial global dengan teknologi modern untuk semua orang.</p>
+      <div id="anim10" class="w-72 h-72 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Testimoni</h1>
+      <p class="text-lg max-w-2xl">“Bersama DV Team, saya bisa membangun penghasilan tambahan secara modern tanpa harus menjadi ahli trading.”</p>
+      <div id="anim11" class="w-64 h-64 mt-6"></div>
+    </section>
+    <section class="slide">
+      <h1 class="text-4xl font-bold mb-6">Call to Action</h1>
+      <p class="text-lg max-w-2xl">🚀 Saatnya buka pikiran, ambil peluang, dan bergabung bersama <b>DV Team x OPALP</b> untuk wujudkan kebebasan finansial!</p>
+      <div id="anim12" class="w-72 h-72 mt-6"></div>
+    </section>
+  </div>
+
+  <!-- Navigation -->
+  <button id="prevBtn" class="nav-btn">⬅️ Prev</button>
+  <button id="nextBtn" class="nav-btn">Next ➡️</button>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        slide.classList.add('hiddenSlide');
+        if (i === index) {
+          slide.classList.add('active');
+          slide.classList.remove('hiddenSlide');
+        }
+      });
+      document.getElementById('progressBar').style.width = ((index+1)/slides.length)*100 + "%";
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    });
+
+    // Lottie Animations (gunakan animasi bebas dari lottiefiles)
+    const animations = [
+      "https://assets10.lottiefiles.com/packages/lf20_tll0j4bb.json",
+      "https://assets1.lottiefiles.com/packages/lf20_jcikwtux.json",
+      "https://assets2.lottiefiles.com/packages/lf20_dcatp5cr.json",
+      "https://assets10.lottiefiles.com/packages/lf20_jtbfg2nb.json",
+      "https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json",
+      "https://assets1.lottiefiles.com/packages/lf20_hvxkyd7p.json",
+      "https://assets2.lottiefiles.com/packages/lf20_mznpnyks.json",
+      "https://assets9.lottiefiles.com/packages/lf20_rnnlxazi.json",
+      "https://assets4.lottiefiles.com/packages/lf20_zrqthn6o.json",
+      "https://assets3.lottiefiles.com/packages/lf20_gjmecwii.json",
+      "https://assets6.lottiefiles.com/packages/lf20_w51pcehl.json",
+      "https://assets1.lottiefiles.com/packages/lf20_w51pcehl.json"
+    ];
+
+    animations.forEach((url, i) => {
+      lottie.loadAnimation({
+        container: document.getElementById(`anim${i+1}`),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: url
+      });
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>
