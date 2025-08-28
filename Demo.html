@@ -1,218 +1,464 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DV Team x OPALP – Presentasi Emosional</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-  body { font-family: 'Inter', sans-serif; margin:0; padding:0; background: #f0f9ff; overflow: hidden; }
-  .presentation-container { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
-  .slide { 
-    display: none; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    padding: 2rem 1rem; 
-    text-align: center; 
-    transition: all 0.7s ease-in-out; 
-    transform: translateX(100%);
-  }
-  .active { 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    transform: translateX(0);
-  }
-  .slide-content { max-width: 800px; padding: 2rem; border-radius: 1rem; backdrop-filter: blur(5px); }
-  .slide h1 { font-size: 2.5rem; font-weight: 700; margin-top: 1rem; color:#1a202c; opacity:0; transform: translateY(20px); animation: fadeSlideIn 1s forwards; }
-  .slide p { font-size: 1.2rem; margin-top: 0.5rem; color:#4a5568; opacity:0; transform: translateY(20px); animation: fadeSlideIn 1s forwards; animation-delay:0.3s; }
-  .lottie-slide { 
-    width: 100%; 
-    max-width: 350px; 
-    height: 350px; 
-    margin: auto; 
-    opacity:0; 
-    transform: scale(0.8); 
-    animation: zoomBounce 1s forwards; 
-    animation-delay: 0.5s; 
-  }
-  .nav-buttons { 
-    position: fixed; 
-    bottom: 2rem; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    display:flex; 
-    gap: 1.5rem; 
-    z-index: 20; 
-  }
-  .nav-buttons button { 
-    padding: 12px 24px; 
-    border: none; 
-    border-radius: 9999px; 
-    font-weight: 600; 
-    cursor: pointer; 
-    transition: all 0.3s ease; 
-    background: #06b6d4; 
-    color: white; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
-  }
-  .nav-buttons button:hover { transform: translateY(-3px) scale(1.05); background: #0891b2; box-shadow: 0 6px 8px rgba(0,0,0,0.15); }
-  
-  @keyframes fadeSlideIn {
-    to { opacity:1; transform: translateY(0); }
-  }
-  @keyframes zoomBounce {
-    0% { transform: scale(0.8); opacity:0; }
-    60% { transform: scale(1.05); opacity:1; }
-    100% { transform: scale(1); }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DV Team x OPALP – Presentasi Profesional</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Poppins:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary-text: #F0F0F0;
+      --color-secondary-text: #C0C0C0;
+      --color-highlight: #4FC3F7;
+      --color-card-bg: rgba(255, 255, 255, 0.08);
+      --color-card-border: rgba(255, 255, 255, 0.15);
+      --color-shadow: rgba(0, 0, 0, 0.4);
+      --color-button-start: #6A82FB;
+      --color-button-end: #FC5C7D;
+    }
+
+    body {
+      background-color: #1A1A1A;
+      /* Background kayu triplek */
+      background-image: url('https://images.unsplash.com/photo-1594951478799-27088b22e1e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjEyMDF8MHwxfHNlYXJjaHwxfHxwbHl3b29kJTIwdGV4dHVyZXxlbnwwfHx8fDE2OTk1OTc1ODN8MA&ixlib=rb-4.0.3&q=80&w=1080');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Poppins', sans-serif;
+      color: var(--color-primary-text);
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .slide-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.7s ease-in-out;
+      z-index: 1;
+    }
+    .slide-container.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 10;
+    }
+
+    .slide-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 800px;
+      width: 90%;
+      background: var(--color-card-bg);
+      padding: 3rem 2.5rem;
+      border-radius: 1.5rem;
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--color-card-border);
+      box-shadow: 0 10px 30px var(--color-shadow);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .content-element {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      margin-bottom: 0.8rem;
+    }
+    .content-element.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-content h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1.2;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      color: var(--color-primary-text);
+      letter-spacing: -0.04em;
+    }
+
+    .point-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0 0;
+      text-align: left;
+      width: 100%;
+      max-width: 650px;
+    }
+
+    .point-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: var(--color-secondary-text);
+      opacity: 0;
+      transform: translateX(-15px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      font-weight: 400;
+    }
+    .point-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .point-text {
+        display: inline;
+        white-space: pre-wrap;
+    }
+
+    .point-item strong {
+      font-weight: 800;
+      color: var(--color-primary-text);
+    }
+
+    .point-icon {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      margin-right: 1rem;
+      color: var(--color-highlight);
+      filter: drop-shadow(0 0 5px rgba(79, 195, 247, 0.4));
+    }
+    
+    .btn-action {
+      padding: 1rem 3rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: linear-gradient(45deg, var(--color-button-start), var(--color-button-end));
+      box-shadow: 0 8px 25px rgba(106, 130, 251, 0.4);
+      color: white;
+      margin-top: 3rem;
+      cursor: pointer;
+    }
+    .btn-action:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(106, 130, 251, 0.6);
+    }
+    
+    .progress-indicator {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+      z-index: 100;
+    }
+
+    .attribution-container {
+        position: fixed;
+        top: 15%; /* Penyesuaian agar lebih ke bawah */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        background: linear-gradient(45deg, var(--color-button-start), var(--color-button-end)); /* Background serasi tombol */
+        padding: 0.7rem 2rem; /* Padding untuk background */
+        border-radius: 1rem; /* Sudut membulat */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sedikit bayangan */
+    }
+
+    .attribution-text {
+        font-family: 'Playfair Display', serif; /* Font elegan */
+        font-size: 1.5rem;
+        color: white; /* Warna teks putih */
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        text-align: center; /* Memastikan teks di tengah */
+        white-space: nowrap; /* Mencegah baris "DV Team Naga" terpecah */
+    }
+
+    .attribution-text span {
+        display: block; /* Memastikan setiap bagian tetap pada barisnya sendiri */
+        line-height: 1.3; /* Untuk jarak antar baris */
+    }
+
+    @media (max-width: 768px) {
+      .slide-content {
+        padding: 2rem 1rem;
+        width: 95%;
+      }
+      .slide-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.2rem;
+      }
+      .point-item {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+      .point-icon {
+        width: 26px;
+        height: 26px;
+        margin-right: 0.8rem;
+      }
+      .btn-action {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        margin-top: 2rem;
+      }
+      .attribution-container {
+        padding: 0.5rem 1.5rem;
+        top: 10%;
+      }
+      .attribution-text {
+        font-size: 1.2rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .slide-content {
+        padding: 1.5rem 0.8rem;
+      }
+      .slide-content h1 {
+        font-size: 2rem;
+      }
+      .point-item {
+        font-size: 1rem;
+        margin-bottom: 0.9rem;
+      }
+      .point-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 0.7rem;
+      }
+      .attribution-container {
+        padding: 0.4rem 1rem;
+        top: 8%;
+      }
+      .attribution-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="presentation-container">
-
-  <div class="slide active" style="background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_q7f6z48t.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Konsep Usaha Masa Depan</h1>
-      <p>Digital Verification Team & OPALP<br>Teknologi Digital & Ekonomi Berbagi</p>
+  <div class="attribution-container">
+    <div class="attribution-text">
+      <span>Dipersembahkan oleh</span>
+      <span>DV Team Naga Persada</span>
     </div>
   </div>
 
-  <div class="slide" style="background: linear-gradient(to bottom right, #ffefef, #ffcdd2);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_m2a7dflf.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Masalah & Tantangan</h1>
-      <p>Kebutuhan, keinginan, dan impian vs. penghasilan tidak seimbang.<br>PHK dan pengangguran tinggi.</p>
+  <div id="presentation">
+    
+    <div class="slide-container active">
+      <div class="slide-content">
+        <h1 class="content-element">Dunia Sedang Berubah</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text"><strong>Teknologi</strong> berkembang cepat.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Cara lama mencari uang makin sulit, banyak <strong>pekerjaan tergantikan</strong>.</span></li>
+        </ul>
+      </div>
     </div>
+    
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Masalah Ekonomi Nyata</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Gaji tetap, tetapi <strong>kebutuhan naik</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text"><strong>PHK besar-besaran</strong> dan daya beli menurun.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Orang bekerja keras tapi <strong>hasil tak cukup</strong>.</span></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Kenapa Butuh Solusi?</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Jika mengandalkan sistem lama, sulit mencapai <strong>kebebasan finansial</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Kita butuh <strong>cara baru</strong> yang efektif.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Memperkenalkan: DV Team & OPALP</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text"><strong>DV Team</strong>: tim investasi global.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text"><strong>OPALP</strong>: platform trading internasional berbasis AI & teknologi digital.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Legalitas & Kepercayaan</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">OPALP berbasis di <strong>Denver, USA</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text"><strong>Legal, modern, dan dipercaya</strong> di banyak negara.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Cara Kerja Sistem</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text"><strong>AI canggih + big data</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Menghasilkan <strong>sinyal trading akurat</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Tinggal ikuti, <strong>hasil lebih terukur</strong>.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Model Keuntungan</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Pengguna dapat <strong>profit harian</strong> dari sinyal trading.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Plus <strong>bonus</strong> berbagi volume transaksi.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Keunggulan DV Team</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text"><strong>Analisis sistematis</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Strategi <strong>5 tahap</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Tim <strong>berpengalaman</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Teknologi <strong>terbaru</strong>.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Simulasi Hasil</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Akun <strong>100 USDT</strong>, target profit <strong>1,8%/hari</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Potensi balik modal dalam <strong>±40 hari</strong>.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Kesempatan Bergabung</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Gabung sekarang, <strong>ikuti sinyal trading</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Pelajari sistem langsung dari <strong>ahlinya</strong>.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Visi Global</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Misi jangka panjang: membangun <strong>ekosistem keuangan digital</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text"><strong>Inklusif dan saling menguntungkan</strong>.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="slide-content">
+        <h1 class="content-element">Call to Action</h1>
+        <ul class="point-list">
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">🚀 Saatnya <strong>buka pikiran, ambil peluang baru</strong>.</span></li>
+          <li class="point-item"><svg class="point-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4l3 3"/></svg><span class="point-text">Wujudkan <strong>kebebasan finansial</strong> bersama DV Team & OPALP.</span></li>
+        </ul>
+        <button class="btn-action content-element">Gabung Sekarang</button>
+      </div>
+    </div>
+    
   </div>
 
-  <div class="slide" style="background: linear-gradient(to bottom right, #fff3e0, #ffe0b2);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_t24tpvcu.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Kesulitan Mencapai Kemandirian Finansial</h1>
-      <p>Berjuang sendiri, lingkungan bisnis tidak kondusif, dan peluang terbatas.</p>
-    </div>
-  </div>
+  <p id="progress" class="progress-indicator"></p>
+  
+  <script>
+    let currentSlideIndex = 0;
+    let currentElementIndex = 0;
+    const slides = document.querySelectorAll('.slide-container');
+    const progressIndicator = document.getElementById('progress');
+  
+    function updateProgress() {
+      progressIndicator.textContent = `Slide ${currentSlideIndex + 1} dari ${slides.length}`;
+    }
 
-  <div class="slide" style="background: linear-gradient(to bottom right, #e3f2fd, #bbdefb);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_h5x80j4c.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Solusi Nyata</h1>
-      <p>Bergabung dengan Tim Investasi DV (DV-Team) dan OPALP untuk solusi modern.</p>
-    </div>
-  </div>
-
-  <div class="slide" style="background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Perkenalkan DV Team & OPALP</h1>
-      <p>DV Team: tim investasi global.<br>OPALP: platform trading internasional berbasis AI & teknologi digital.</p>
-    </div>
-  </div>
-
-  <div class="slide" style="background: linear-gradient(to bottom right, #fff8e1, #ffecb3);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_jpl5c99i.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Legalitas & Keamanan</h1>
-      <p>OPALP teregulasi internasional. Platform resmi & aman untuk trading dan investasi.</p>
-    </div>
-  </div>
-
-  <div class="slide" style="background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_c6vjng4g.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Peluang & Sistem</h1>
-      <p>AI + tim ahli memberikan sinyal trading terukur dan strategi investasi sistematis.</p>
-    </div>
-  </div>
-
-  <div class="slide" style="background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Keuntungan Bergabung</h1>
-      <p>Belajar langsung dari ahlinya, strategi terbukti, sistem modern, profit lebih terukur.</p>
-    </div>
-  </div>
-
-  <div class="slide" style="background: linear-gradient(to bottom right, #ffefef, #ffcdd2);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_wz6t6j3i.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Testimoni</h1>
-      <p>Anggota DV Team telah merasakan pertumbuhan profit dan pemahaman trading modern.</p>
-    </div>
-  </div>
-
-  <div class="slide" style="background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_qj3n6a7g.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Langkah Bergabung</h1>
-      <p>Daftar, ikuti sinyal, pantau strategi, nikmati keuntungan dari sistem modern.</p>
-    </div>
-  </div>
-
-  <div class="slide" style="background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_p8q4f77c.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Bergabung Sekarang</h1>
-      <p>Mari buka pikiran dan ambil peluang baru. Wujudkan penghasilan tambahan.</p>
-    </div>
-  </div>
-
-  <div class="slide" style="background: linear-gradient(to bottom right, #e3f2fd, #bbdefb);">
-    <div class="slide-content">
-      <lottie-player class="lottie-slide" src="https://assets2.lottiefiles.com/packages/lf20_c6vjng4g.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      <h1>Terima Kasih</h1>
-      <p>Selamat datang di DV Team & OPALP. Siap memulai perjalanan finansial modernmu!</p>
-    </div>
-  </div>
-
-</div>
-
-<div class="nav-buttons">
-  <button onclick="prevSlide()">Sebelumnya</button>
-  <button onclick="nextSlide()">Berikutnya</button>
-</div>
-
-<script>
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.slide');
-  const totalSlides = slides.length;
-
-  function showSlide(index) {
-    slides.forEach((s, i) => {
-      s.classList.remove('active');
-      if (i > index) {
-        s.style.transform = 'translateX(100%)';
-      } else if (i < index) {
-        s.style.transform = 'translateX(-100%)';
+    function showCurrentSlide() {
+      slides.forEach((s, i) => {
+        if (i === currentSlideIndex) {
+          s.classList.add('active');
+          const elements = s.querySelectorAll('.content-element, .point-item');
+          elements.forEach(el => el.classList.remove('visible'));
+        } else {
+          s.classList.remove('active');
+        }
+      });
+      currentElementIndex = 0;
+      updateProgress();
+      setTimeout(showNextElementInSlide, 300);
+    }
+  
+    function showNextElementInSlide() {
+      const activeSlide = slides[currentSlideIndex];
+      const elementsToAnimate = activeSlide.querySelectorAll('.content-element, .point-item');
+      
+      if (currentElementIndex < elementsToAnimate.length) {
+        elementsToAnimate[currentElementIndex].classList.add('visible');
+        currentElementIndex++;
+        return false;
+      } else {
+        return true;
+      }
+    }
+  
+    document.body.addEventListener('click', (e) => {
+      const allElementsShown = showNextElementInSlide();
+      if (allElementsShown) {
+        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+        showCurrentSlide();
       }
     });
-    slides[index].classList.add('active');
-  }
 
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    showSlide(currentSlide);
-  }
-
-  function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    showSlide(currentSlide);
-  }
-
-  showSlide(currentSlide);
-
-  // Auto slide setiap 15 detik
-  setInterval(nextSlide, 15000);
-</script>
-
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        const allElementsShown = showNextElementInSlide();
+        if (allElementsShown) {
+          currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+          showCurrentSlide();
+        }
+      }
+      if (e.key === 'ArrowLeft') {
+        if (currentElementIndex <= 1 && currentSlideIndex > 0) {
+          currentSlideIndex--;
+          showCurrentSlide();
+        } else if (currentElementIndex > 1) {
+          currentElementIndex--;
+          const activeSlide = slides[currentSlideIndex];
+          const elementsToAnimate = activeSlide.querySelectorAll('.content-element, .point-item');
+          elementsToAnimate[currentElementIndex].classList.remove('visible');
+        }pl
+      }
+    });
+  
+    showCurrentSlide();
+  </script>
 </body>
 </html>
